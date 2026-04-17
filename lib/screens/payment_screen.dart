@@ -42,6 +42,11 @@ class _PaymentScreenState extends State<PaymentScreen> {
   @override
   void initState() {
     super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
     _loadBookingData();
   }
 
@@ -272,25 +277,29 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 ),
               ),
               const SizedBox(height: 16),
-              _buildPaymentOption(
-                'Credit Card',
-                Icons.credit_card,
-                '**** **** **** 4242',
-              ),
-              _buildPaymentOption(
-                'PayPal',
-                Icons.payment,
-                'user@email.com',
-              ),
-              _buildPaymentOption(
-                'Apple Pay',
-                Icons.apple,
-                'Pay with Apple Pay',
-              ),
-              _buildPaymentOption(
-                'Cash on Delivery',
-                Icons.money,
-                'Pay when service is provided',
+  Column(
+                children: [
+                  _buildPaymentOption(
+                    'Credit Card',
+                    Icons.credit_card,
+                    '**** **** **** 4242',
+                  ),
+                  _buildPaymentOption(
+                    'PayPal',
+                    Icons.payment,
+                    'user@email.com',
+                  ),
+                  _buildPaymentOption(
+                    'Apple Pay',
+                    Icons.apple,
+                    'Pay with Apple Pay',
+                  ),
+                  _buildPaymentOption(
+                    'Cash on Delivery',
+                    Icons.money,
+                    'Pay when service is provided',
+                  ),
+                ],
               ),
               const SizedBox(height: 24),
 
@@ -468,13 +477,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
             ),
           ],
         ),
-        value: title,
-        groupValue: _selectedPaymentMethod,
-        onChanged: (value) {
-          setState(() {
-            _selectedPaymentMethod = value!;
-          });
-        },
+          value: title,
       ),
     );
   }

@@ -96,7 +96,7 @@ class _MapScreenState extends State<MapScreen> {
                         borderRadius: const BorderRadius.vertical(
                           top: Radius.circular(20),
                         ),
-                        boxShadow: [
+  boxShadow: [
                           BoxShadow(
                             color: Colors.black.withOpacity(0.1),
                             blurRadius: 10,

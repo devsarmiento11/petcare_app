@@ -14,12 +14,12 @@ class _BreedSelectionScreenState extends State<BreedSelectionScreen> {
   int? selectedIndex;
 
   final List<Map<String, String>> breeds = [
-    {"name": "Labrador", "image": "assets/labrador.png"},
-    {"name": "Golden Retriever", "image": "assets/golden.png"},
-    {"name": "Papillon", "image": "assets/papillon.png"},
-    {"name": "German Shepherd", "image": "assets/german.png"},
-    {"name": "English Springer\nSpaniel", "image": "assets/spaniel.png"},
-    {"name": "Border Collie", "image": "assets/collie.png"},
+    {"name": "Labrador", "image": "assets/images/labrador.png"},
+    {"name": "Golden Retriever", "image": "assets/images/golden.png"},
+    {"name": "Papillon", "image": "assets/images/papillon.png"},
+    {"name": "German Shepherd", "image": "assets/images/german.png"},
+    {"name": "English Springer\nSpaniel", "image": "assets/images/spaniel.png"},
+    {"name": "Border Collie", "image": "assets/images/collie.png"},
   ];
 
   @override
@@ -124,7 +124,7 @@ class _BreedSelectionScreenState extends State<BreedSelectionScreen> {
 
                           Image.asset(
                             breed["image"]!,
-                            height: 90,
+                            height: 110,
                           ),
 
                         ],

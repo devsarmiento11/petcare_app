@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:firebase_core/firebase_core.dart';
 import 'screens/splash_screen.dart';
 import 'screens/login_screen.dart';
 import 'screens/home_screen.dart';
@@ -7,7 +7,9 @@ import 'screens/map_screen.dart';
 import 'screens/booking_screen.dart';
 import 'screens/payment_screen.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const PetCareApp());
 }
 
@@ -61,6 +63,12 @@ class PetCareApp extends StatelessWidget {
         '/': (context) => const SplashScreen(),
         '/login': (context) => const LoginScreen(),
         '/home': (context) => const HomeScreen(),
+        // '/breed-selection': (context) => const BreedSelectionScreen(),
+        // '/add-pet': (context) => const AddPetProfileScreen(breedName: '', breedImage: ''),
+        // '/dashboard': (context) => const DashboardScreen(petName: '', breedName: '', imagePath: ''),
+        // '/store': (context) => const StoreScreen(),
+        // '/messages': (context) => const MessagesScreen(),
+        // '/profile': (context) => const ProfileScreen(),
         '/map': (context) => const MapScreen(),
         '/booking': (context) => const BookingScreen(),
         '/payment': (context) => const PaymentScreen(),

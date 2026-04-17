@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-
+import '../services/auth_service.dart';
+import '../services/pet_service.dart';
+import '../models/pet.dart';
 import 'dashboard_screen.dart';
 
 class AddPetProfileScreen extends StatefulWidget {
@@ -22,6 +24,69 @@ class _AddPetProfileScreenState extends State<AddPetProfileScreen> {
   final TextEditingController sizeController = TextEditingController();
   final TextEditingController genderController = TextEditingController();
   final TextEditingController birthController = TextEditingController();
+
+  final AuthService _authService = AuthService();
+  final PetService _petService = PetService();
+
+  Future<void> _savePetAndContinue() async {
+    if (nameController.text.isEmpty || birthController.text.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Please fill pet name and birth date')),
+      );
+      return;
+    }
+
+    try {
+      // Parse birth date dd/mm/yyyy -> age approx
+      final parts = birthController.text.split('/');
+      int age = 0;
+      if (parts.length == 3) {
+        final birthDate = DateTime(int.parse(parts[2]), int.parse(parts[1]), int.parse(parts[0]));
+        age = DateTime.now().year - birthDate.year;
+        final now = DateTime.now();
+        if ((now.month < birthDate.month || (now.month == birthDate.month && now.day < birthDate.day))) {
+          age--;
+        }
+      }
+
+      final user = await _authService.getCurrentUser();
+      if (user == null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('User not logged in')),
+        );
+        return;
+      }
+
+      final pet = Pet(
+        id: '', // auto-generated
+        name: nameController.text,
+        species: 'Dog',
+        breed: widget.breedName,
+        age: age.clamp(0, 30), // sane range
+        imageUrl: widget.breedImage,
+      );
+
+      final petId = await _petService.createPet(pet);
+      await _petService.addPetToUser(user.id, petId);
+
+      if (mounted) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => DashboardScreen(
+              petName: nameController.text,
+              breedName: widget.breedName,
+              imagePath: widget.breedImage,
+            ),
+          ),
+        );
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Save failed: $e')),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -140,19 +205,7 @@ class _AddPetProfileScreenState extends State<AddPetProfileScreen> {
                     ),
                   ),
 
-                  onPressed: () {
-
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => DashboardScreen(
-                          petName: nameController.text,
-                          breedName: widget.breedName,
-                          imagePath: widget.breedImage,
-                        ),
-                      ),
-                    );
-                  },
+                  onPressed: _savePetAndContinue,
 
                   child: const Text(
                     "Continue",

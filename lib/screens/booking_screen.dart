@@ -74,19 +74,21 @@ class _BookingScreenState extends State<BookingScreen> {
               ),
             ),
             const SizedBox(height: 12),
-            ..._pets.map((pet) {
-              return RadioListTile<String>(
-                title: Text(pet),
-                value: pet,
-                groupValue: _selectedPet,
-                onChanged: (value) {
-                  setState(() {
-                    _selectedPet = value;
-                  });
-                },
-                contentPadding: EdgeInsets.zero,
-              );
-            }),
+            Column(
+              children: [
+                ..._pets.map((pet) => RadioListTile<String>(
+                  title: Text(pet),
+                  value: pet,
+                  groupValue: _selectedPet,
+                  onChanged: (value) {
+                    setState(() {
+                      _selectedPet = value;
+                    });
+                  },
+                  contentPadding: EdgeInsets.zero,
+                )),
+              ],
+            ),
             const SizedBox(height: 16),
 
             // Add New Pet Button
