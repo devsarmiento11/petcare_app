@@ -197,9 +197,41 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   color: const Color(0xffDCE8E2),
                   borderRadius: BorderRadius.circular(15),
                 ),
-
-                child: const Center(
-                  child: Text("Health"),
+                child: Stack(
+                  children: [
+                    // Logo positioned top-left
+                    Positioned(
+                      top: 12,
+                      left: 16,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: Image.asset(
+                          'assets/images/dog-pets-healthcare-care-medical-clinic-sick-treatment-colorful-modern-mascot-logo-icon-illustration-vector.jpg',
+                          height: 60,
+                          width: 60,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                    // Text centered
+                    const Center(
+                      child: Text(
+                        "Health",
+                        style: TextStyle(
+                          color: Colors.black87,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w600,
+                          shadows: [
+                            Shadow(
+                              offset: Offset(0.5, 0.5),
+                              blurRadius: 1,
+                              color: Colors.black26,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
 

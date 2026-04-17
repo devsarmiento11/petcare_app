@@ -1,12 +1,4 @@
-# PetCare Firebase Tasks
+# Petcare App Task: Add Logo to Health Service Container
 
-## 1. Firebase Auto-Registration ✅
-- [x] Create TODO.md 
-- [x] Update auth_service.dart with Firestore user saves ✅
-- [x] Test auth flows (pending app test)
-
-## 2. Pet Breed Database Save ✅
-- [x] Step 1: Update TODO.md 
-- [x] Step 2: Create lib/services/pet_service.dart ✅
-- [x] Step 3: Update lib/screens/add_pet_profile_screen.dart to save pet on continue ✅
-- [x] Step 4: Test pet addition (pending app test)
+## Steps:
+- [x] 1. Create TODO.md with task steps\n- [x] 2. Edit lib/screens/dashboard_screen.dart: Replace Health Container with Stack containing Image.asset logo (top-left) and centered Text\n- [x] 3. Verify changes with hot reload / run app\n- [x] 4. Mark complete and attempt_completion\n\nProgress: All steps complete. Health service now has a clean template with medical dog logo top-left and styled centered text.
