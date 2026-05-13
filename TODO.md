@@ -1,4 +1,10 @@
-# Petcare App Task: Add Logo to Health Service Container
+# TODO
 
-## Steps:
-- [x] 1. Create TODO.md with task steps\n- [x] 2. Edit lib/screens/dashboard_screen.dart: Replace Health Container with Stack containing Image.asset logo (top-left) and centered Text\n- [x] 3. Verify changes with hot reload / run app\n- [x] 4. Mark complete and attempt_completion\n\nProgress: All steps complete. Health service now has a clean template with medical dog logo top-left and styled centered text.
+- [ ] (1) Update Pet model + PetService to support size/gender/birthDate so AddPetProfileScreen is accurate.
+- [ ] (2) Fix appointment booking to use the user’s real pets (remove unknown_pet) by fetching user pets in BookAppointmentScreen.
+- [ ] (3) Ensure booking is written to Firestore as part of the appointment flow coming from AppointmentScreen.
+- [ ] (4) Move order recording from PaymentSuccessScreen into CheckoutScreen after Stripe payment succeeds.
+- [ ] (5) Prevent duplicate order writes by disabling/removing recording in PaymentSuccessScreen.
+- [ ] (6) Optionally update user doc with orderIds in OrderService.recordPaidOrder.
+- [ ] (7) Run `flutter analyze` and do a quick manual smoke test (add pet, book appointment, checkout).
+

@@ -6,6 +6,11 @@ class Pet {
   final int age;
   final String imageUrl;
 
+  /// Optional profile fields collected in `AddPetProfileScreen`.
+  final String? gender;
+  final String? size;
+  final String? birthDate; // dd/MM/yyyy (keeps current UI format)
+
   Pet({
     required this.id,
     required this.name,
@@ -13,6 +18,9 @@ class Pet {
     required this.breed,
     required this.age,
     this.imageUrl = '',
+    this.gender,
+    this.size,
+    this.birthDate,
   });
 
   Map<String, dynamic> toJson() => {
@@ -22,6 +30,9 @@ class Pet {
         'breed': breed,
         'age': age,
         'imageUrl': imageUrl,
+        'gender': gender,
+        'size': size,
+        'birthDate': birthDate,
       };
 
   factory Pet.fromJson(Map<String, dynamic> json) => Pet(
@@ -29,7 +40,11 @@ class Pet {
         name: json['name'],
         species: json['species'],
         breed: json['breed'],
-        age: json['age'],
+        age: (json['age'] as num).toInt(),
         imageUrl: json['imageUrl'] ?? '',
+        gender: json['gender'],
+        size: json['size'],
+        birthDate: json['birthDate'],
       );
 }
+

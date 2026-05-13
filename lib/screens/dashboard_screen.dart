@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'store_screen.dart';
-import 'messages_screen.dart';
-import 'profile_screen.dart';
+import 'grooming_screen.dart';
+import 'health_screen.dart';
+import 'tracking_screen.dart';
+
 
 class DashboardScreen extends StatefulWidget {
   final String petName;
@@ -20,40 +21,14 @@ class DashboardScreen extends StatefulWidget {
 }
 
 class _DashboardScreenState extends State<DashboardScreen> {
-  int _selectedIndex = 0;
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-
-    if (index == 1) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const StoreScreen()),
-      );
-    } else if (index == 2) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const MessagesScreen()),
-      );
-    } else if (index == 3) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const ProfileScreen()),
-      );
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xffF5F5F5),
 
-      body: SafeArea(
-        child: Padding(
+body: SafeArea(
+        child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 16),
-
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -190,48 +165,70 @@ class _DashboardScreenState extends State<DashboardScreen> {
               const SizedBox(height: 15),
 
               /// HEALTH SERVICE
-              Container(
-                height: 90,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: const Color(0xffDCE8E2),
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                child: Stack(
-                  children: [
-                    // Logo positioned top-left
-                    Positioned(
-                      top: 12,
-                      left: 16,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: Image.asset(
-                          'assets/images/dog-pets-healthcare-care-medical-clinic-sick-treatment-colorful-modern-mascot-logo-icon-illustration-vector.jpg',
-                          height: 60,
-                          width: 60,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const HealthScreen(),
                     ),
-                    // Text centered
-                    const Center(
-                      child: Text(
-                        "Health",
-                        style: TextStyle(
-                          color: Colors.black87,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w600,
-                          shadows: [
-                            Shadow(
-                              offset: Offset(0.5, 0.5),
-                              blurRadius: 1,
-                              color: Colors.black26,
+                  );
+                },
+                borderRadius: BorderRadius.circular(15),
+                child: Container(
+                  height: 120,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: const Color(0xffDCE8E2),
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  child: Stack(
+                    children: [
+                      // Logo centered top
+                      Positioned(
+                        top: 12,
+                        left: 0,
+                        right: 0,
+                        child: Center(
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: Image.asset(
+                              'assets/images/healthpetcare.png',
+                              height: 60,
+                              width: 60,
+                              fit: BoxFit.cover,
                             ),
-                          ],
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+
+                      // Text centered below
+                      Positioned(
+                        bottom: 12,
+                        left: 0,
+                        right: 0,
+                        child: Center(
+                          child: Text(
+                            "Health",
+                            style: TextStyle(
+                              color: Colors.black87,
+                              fontSize: 18,
+                              fontWeight: FontWeight.w600,
+                              shadows: [
+                                Shadow(
+                                  offset: Offset(0.5, 0.5),
+                                  blurRadius: 1,
+                                  color: Colors.black26,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+
+                      ),
+
+                    ],
+                  ),
                 ),
               ),
 
@@ -242,26 +239,138 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 children: [
 
                   Expanded(
-                    child: Container(
-                      height: 90,
-                      decoration: BoxDecoration(
-                        color: const Color(0xffE5E8F1),
-                        borderRadius: BorderRadius.circular(15),
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const GroomingScreen(),
+                          ),
+                        );
+                      },
+                      borderRadius: BorderRadius.circular(15),
+                      child: Container(
+                        height: 90,
+                        decoration: BoxDecoration(
+                          color: const Color(0xffE5E8F1),
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        child: Stack(
+                          children: [
+                            // Logo centered top
+                            Positioned(
+                              top: 12,
+                              left: 0,
+                              right: 0,
+                              child: Center(
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(10),
+                                  child: Image.asset(
+                                    'assets/images/grooming.png',
+                                    height: 40,
+                                    width: 40,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                            ),
+
+                            // Text centered below
+                            Positioned(
+                              bottom: 12,
+                              left: 0,
+                              right: 0,
+                              child: Center(
+                                child: Text(
+                                  "Grooming",
+                                  style: TextStyle(
+                                    color: Colors.black87,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w600,
+                                    shadows: [
+                                      Shadow(
+                                        offset: Offset(0.5, 0.5),
+                                        blurRadius: 1,
+                                        color: Colors.black26,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+
+                            ),
+
+                          ],
+                        ),
                       ),
-                      child: const Center(child: Text("Grooming")),
                     ),
                   ),
 
                   const SizedBox(width: 10),
 
                   Expanded(
-                    child: Container(
-                      height: 90,
-                      decoration: BoxDecoration(
-                        color: const Color(0xffEDE5DF),
-                        borderRadius: BorderRadius.circular(15),
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const TrackingScreen(),
+                          ),
+                        );
+                      },
+                      borderRadius: BorderRadius.circular(15),
+                      child: Container(
+                        height: 90,
+                        decoration: BoxDecoration(
+                          color: const Color(0xffEDE5DF),
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        child: Stack(
+                          children: [
+                            // Logo centered top
+                            Positioned(
+                              top: 12,
+                              left: 0,
+                              right: 0,
+                              child: Center(
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(10),
+                                  child: Image.asset(
+                                    'assets/images/tracking.png',
+                                    height: 40,
+                                    width: 40,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                            ),
+
+                            // Text centered below
+                            Positioned(
+                              bottom: 12,
+                              left: 0,
+                              right: 0,
+                              child: Center(
+                                child: Text(
+                                  "Tracking",
+                                  style: TextStyle(
+                                    color: Colors.black87,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w600,
+                                    shadows: [
+                                      Shadow(
+                                        offset: Offset(0.5, 0.5),
+                                        blurRadius: 1,
+                                        color: Colors.black26,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                      child: const Center(child: Text("Tracking")),
                     ),
                   ),
                 ],
@@ -287,13 +396,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
               const SizedBox(height: 10),
 
               SizedBox(
-                height: 90,
+                height: 160,
                 child: ListView(
                   scrollDirection: Axis.horizontal,
                   children: [
 
-                    nearbyCard("Moon Pet Hospital"),
-                    nearbyCard("Pawsome Clinic"),
+                    nearbyCard("Moon Pet Hospital", "assets/images/hostpital.jpg"),
+                    nearbyCard("Pawsome Clinic", "assets/images/paws.jpg"),
 
                   ],
                 ),
@@ -303,44 +412,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
           ),
         ),
       ),
-
-      /// BOTTOM NAVBAR
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        backgroundColor: const Color(0xff4E7A80),
-        selectedItemColor: Colors.white,
-        unselectedItemColor: Colors.white70,
-        showUnselectedLabels: true,
-        currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
-
-        items: const [
-
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: "Home",
-          ),
-
-          BottomNavigationBarItem(
-            icon: Icon(Icons.store),
-            label: "Store",
-          ),
-
-          BottomNavigationBarItem(
-            icon: Icon(Icons.message),
-            label: "Messages",
-          ),
-
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: "Profile",
-          ),
-        ],
-      ),
     );
   }
 
-  Widget nearbyCard(String name) {
+  Widget nearbyCard(String name, [String? imagePath]) {
     return Container(
       width: 160,
       margin: const EdgeInsets.only(right: 10),
@@ -354,23 +429,55 @@ class _DashboardScreenState extends State<DashboardScreen> {
         padding: const EdgeInsets.all(10),
 
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
 
+            if (imagePath != null && imagePath.isNotEmpty)
+              Column(
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: Image.asset(
+                      imagePath,
+                      height: 55,
+                      width: 85,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                ],
+              ),
+
             Text(
               name,
-              style: const TextStyle(fontWeight: FontWeight.bold),
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 14,
+              ),
+              overflow: TextOverflow.ellipsis,
+              maxLines: 2,
             ),
 
-            const SizedBox(height: 5),
+            const SizedBox(height: 4),
 
-            const Text("1.3 km • ⭐ 4.4"),
+            const Row(
+              children: [
+                Text("1.3 km"),
+                SizedBox(width: 6),
+                Icon(Icons.star, size: 16, color: Colors.amber),
+                SizedBox(width: 2),
+                Text("4.4", style: TextStyle(fontWeight: FontWeight.w600)),
+              ],
+            ),
 
-            const Spacer(),
+            const SizedBox(height: 4),
 
-            const Text(
+            Text(
               "View Location",
-              style: TextStyle(color: Colors.blue),
+              style: const TextStyle(color: Colors.blue),
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
             ),
 
           ],

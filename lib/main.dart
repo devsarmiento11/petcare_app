@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'screens/splash_screen.dart';
 import 'screens/login_screen.dart';
 import 'screens/home_screen.dart';
@@ -7,9 +9,19 @@ import 'screens/map_screen.dart';
 import 'screens/booking_screen.dart';
 import 'screens/payment_screen.dart';
 
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   await Firebase.initializeApp();
+
+Stripe.publishableKey =
+    "pk_test_51TUDnRGn0Cl63UNEW4LyDGPFFjCQMysqICtgvUwNEa8qFJhTpaTXiV7HDoREZxEzU38BWAfgqcHgiuUmb1V05Jy500NhdtgWDq";
+  await Stripe.instance.applySettings();
+
+  await MobileAds.instance.initialize();
+
+
   runApp(const PetCareApp());
 }
 

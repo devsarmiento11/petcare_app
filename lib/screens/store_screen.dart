@@ -1,47 +1,12 @@
 import 'package:flutter/material.dart';
 
-import 'dashboard_screen.dart';
-import 'messages_screen.dart';
-import 'profile_screen.dart';
 
-class StoreScreen extends StatefulWidget {
+import 'cart_screen.dart';
+import 'viewproduct_screen.dart';
+
+class StoreScreen extends StatelessWidget {
+
   const StoreScreen({super.key});
-
-  @override
-  State<StoreScreen> createState() => _StoreScreenState();
-}
-
-class _StoreScreenState extends State<StoreScreen> {
-  int _selectedIndex = 0;
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-
-    if (index == 0) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const DashboardScreen(
-            petName: "My Pet",
-            breedName: "Breed",
-            imagePath: "assets/dogs.png",
-          ),
-        ),
-      );
-    } else if (index == 2) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const MessagesScreen()),
-      );
-    } else if (index == 3) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const ProfileScreen()),
-      );
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,11 +22,23 @@ class _StoreScreenState extends State<StoreScreen> {
           style: TextStyle(color: Colors.black),
         ),
         centerTitle: true,
-        actions: const [
+        actions: [
           Padding(
-            padding: EdgeInsets.only(right: 15),
-            child: Icon(Icons.shopping_cart_outlined, color: Colors.black),
-          )
+            padding: const EdgeInsets.only(right: 15),
+            child: InkWell(
+              borderRadius: BorderRadius.circular(20),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => const CartScreen()),
+                );
+              },
+              child: const Icon(
+                Icons.shopping_cart_outlined,
+                color: Colors.black,
+              ),
+            ),
+          ),
         ],
       ),
 
@@ -155,7 +132,7 @@ class _StoreScreenState extends State<StoreScreen> {
                     name: "Josera Mini Deluxe",
                     price: "₱1000.00",
                     weight: "900g",
-                    image: "assets/josera.png",
+                    image: "assets/images/minideluxe.jpg"
                   ),
 
                   ProductCard(
@@ -163,7 +140,7 @@ class _StoreScreenState extends State<StoreScreen> {
                     name: "Pedigree Chicken & Vege",
                     price: "₱1590.00",
                     weight: "3kg",
-                    image: "assets/pedigree.png",
+                    image: "assets/images/pedigree.jpg",
                   ),
 
                   ProductCard(
@@ -171,7 +148,7 @@ class _StoreScreenState extends State<StoreScreen> {
                     name: "BlackHawk Puppy Lamb &",
                     price: "₱2550.00",
                     weight: "20kg",
-                    image: "assets/blackhawk.png",
+                    image: "assets/images/blackhawk.jpg",
                   ),
 
                   ProductCard(
@@ -179,49 +156,15 @@ class _StoreScreenState extends State<StoreScreen> {
                     name: "Royal Canin Labrador P",
                     price: "₱1140.00",
                     weight: "3kg",
-                    image: "assets/royalcanin.png",
+                    image: "assets/images/royalcanin.jpg",
                   ),
 
                 ],
               ),
             ),
 
-          ],
+],
         ),
-      ),
-
-      /// BOTTOM NAVBAR
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        backgroundColor: const Color(0xff4E7A80),
-        selectedItemColor: Colors.white,
-        unselectedItemColor: Colors.white70,
-        showUnselectedLabels: true,
-        currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
-
-        items: const [
-
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: "Home",
-          ),
-
-          BottomNavigationBarItem(
-            icon: Icon(Icons.store),
-            label: "Store",
-          ),
-
-          BottomNavigationBarItem(
-            icon: Icon(Icons.message),
-            label: "Messages",
-          ),
-
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: "Profile",
-          ),
-        ],
       ),
     );
   }
@@ -256,7 +199,9 @@ class _StoreScreenState extends State<StoreScreen> {
 }
 
 /// PRODUCT CARD
+
 class ProductCard extends StatelessWidget {
+
 
   final String brand;
   final String name;
@@ -275,64 +220,74 @@ class ProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(15),
-      ),
-
-      child: Padding(
-        padding: const EdgeInsets.all(10),
-
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-
-            Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 8,
-                vertical: 3,
-              ),
-              decoration: BoxDecoration(
-                color: const Color(0xff4E7A80),
-                borderRadius: BorderRadius.circular(5),
-              ),
-              child: Text(
-                brand,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 10,
+    return InkWell(
+      borderRadius: BorderRadius.circular(15),
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ViewProductScreen(
+              name: name,
+              brand: brand,
+              price: price,
+              weight: weight,
+              imagePath: image,
+              recommendedFor: brand,
+              description:
+                  "$name - $weight is a complete and balanced meal designed for adult dogs. High-quality ingredients support health, immune system, and a healthy coat.",
+            ),
+          ),
+        );
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(15),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 8,
+                  vertical: 3,
+                ),
+                decoration: BoxDecoration(
+                  color: const Color(0xff4E7A80),
+                  borderRadius: BorderRadius.circular(5),
+                ),
+                child: Text(
+                  brand,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 10,
+                  ),
                 ),
               ),
-            ),
-
-            const SizedBox(height: 8),
-
-            Center(
-              child: Image.asset(
-                image,
-                height: 90,
+              const SizedBox(height: 8),
+              Center(
+                child: Image.asset(
+                  image,
+                  height: 90,
+                ),
               ),
-            ),
-
-            const SizedBox(height: 8),
-
-            Text(
-              name,
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
+              const SizedBox(height: 8),
+              Text(
+                name,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-            ),
-
-            const SizedBox(height: 4),
-
-            Text(price),
-
-            Text(weight, style: const TextStyle(fontSize: 12)),
-
-          ],
+              const SizedBox(height: 4),
+              Text(price),
+              Text(weight, style: const TextStyle(fontSize: 12)),
+            ],
+          ),
         ),
       ),
     );
   }
 }
+

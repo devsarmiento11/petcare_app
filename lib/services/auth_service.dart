@@ -150,4 +150,19 @@ class AuthService {
   Future<void> resetPassword(String email) async {
     await _auth.sendPasswordResetEmail(email: email);
   }
+
+  Future<void> updateProfile(String uid, String name, {String? phone}) async {
+    try {
+      final userDoc = FirebaseFirestore.instance.collection('users').doc(uid);
+final Map<String, dynamic> updates = {'name': name};
+if (phone != null && phone.isNotEmpty) {
+        updates['phone'] = phone;
+      }
+      await userDoc.update(updates);
+      print('Profile updated for UID: $uid');
+    } catch (e) {
+      print('Update profile error: $e');
+      rethrow;
+    }
+  }
 }
