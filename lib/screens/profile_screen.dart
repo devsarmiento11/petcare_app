@@ -2,23 +2,25 @@ import 'package:flutter/material.dart';
 import 'editprofile_screen.dart';
 import '../services/auth_service.dart';
 import 'login_screen.dart';
-
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final user = FirebaseAuth.instance.currentUser;
+    final uid = user?.uid;
+
     return Scaffold(
       backgroundColor: const Color(0xffF4F4F4),
-
       body: SafeArea(
         child: Column(
           children: [
-
             const SizedBox(height: 15),
 
-            /// PROFILE HEADER
+            /// PROFILE HEADER (from Firestore users/{uid})
             InkWell(
               onTap: () {
                 Navigator.push(
@@ -30,45 +32,55 @@ class ProfileScreen extends StatelessWidget {
               },
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: StreamBuilder<DocumentSnapshot<Map<String, dynamic>>>(
+                  stream: (uid == null)
+                      ? null
+                      : FirebaseFirestore.instance
+                          .collection('users')
+                          .doc(uid)
+                          .snapshots(),
+                  builder: (context, snapshot) {
+                    final data = snapshot.data?.data();
+                    final name = (data?['name'] as String?) ?? user?.displayName ?? 'User';
+                    final imageUrl = (data?['profileImageUrl'] as String?) ?? user?.photoURL;
 
-                child: Row(
-                  children: [
-
-                    const CircleAvatar(
-                      radius: 25,
-                      child: Icon(Icons.person),
-                    ),
-
-                    const SizedBox(width: 12),
-
-                    const Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                    return Row(
                       children: [
-
-                        Text(
-                          "Hello,",
-                          style: TextStyle(fontSize: 12),
+                        CircleAvatar(
+                          radius: 25,
+                          backgroundImage: (imageUrl != null && imageUrl.isNotEmpty)
+                              ? NetworkImage(imageUrl)
+                              : null,
+                          child: (imageUrl == null || imageUrl.isEmpty)
+                              ? const Icon(Icons.person)
+                              : null,
                         ),
-
-                        Text(
-                          "Kent",
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
+                        const SizedBox(width: 12),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              "Hello,",
+                              style: TextStyle(fontSize: 12),
+                            ),
+                            Text(
+                              name,
+                              style: const TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
                         ),
-
+                        const Spacer(),
+                        const Icon(Icons.arrow_forward_ios, size: 16),
                       ],
-                    ),
-
-                    const Spacer(),
-
-                    const Icon(Icons.arrow_forward_ios, size: 16),
-
-                  ],
+                    );
+                  },
                 ),
               ),
             ),
+
 
             const SizedBox(height: 15),
 

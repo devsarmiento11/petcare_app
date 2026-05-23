@@ -100,6 +100,7 @@ class _AddPetProfileScreenState extends State<AddPetProfileScreen> {
               petName: nameController.text,
               breedName: widget.breedName,
               imagePath: widget.breedImage,
+              petId: petId,
             ),
           ),
         );

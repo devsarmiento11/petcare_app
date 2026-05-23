@@ -8,12 +8,14 @@ class MainShell extends StatefulWidget {
   final String petName;
   final String breedName;
   final String imagePath;
+  final String petId;
 
   const MainShell({
     super.key,
     required this.petName,
     required this.breedName,
     required this.imagePath,
+    required this.petId,
   });
 
   @override
@@ -37,7 +39,7 @@ class _MainShellState extends State<MainShell> {
         imagePath: widget.imagePath,
       ),
       const StoreScreen(),
-      const MessagesScreen(),
+      MessagesScreen(petId: widget.petId, petName: widget.petName),
       const ProfileScreen(),
     ];
   }
